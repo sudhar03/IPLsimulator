@@ -3,6 +3,7 @@ from django.db import models
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
+    logo = models.ImageField(upload_to="logo", blank=True, null=True)
 
     class Meta:
         verbose_name = "User"

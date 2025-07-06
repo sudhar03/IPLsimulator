@@ -23,8 +23,6 @@ class LoginInSerializer(serializers.ModelSerializer):
         password = attrs.get("password")
         email = attrs.get("email")
 
-        print(attrs)
-
         if not username or not password:
             raise serializers.ValidationError("Username and password are required.")
 
@@ -57,6 +55,12 @@ class LoginInSerializer(serializers.ModelSerializer):
             attrs["status"] = "signup"
 
         return attrs
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("username", "email",)
 
 
 
