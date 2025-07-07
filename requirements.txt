@@ -14,3 +14,4 @@ drf-writable-nested==0.6.4
 psycopg2-binary==2.9.10
 pillow==11.3.0
 ipython==9.4.0
+django-model-utils==4.2.0
