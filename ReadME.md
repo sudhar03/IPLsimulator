@@ -27,3 +27,43 @@ A realistic, multi-team IPL auction simulator built with Django, Celery, and Red
 | Caching       | Django Cache (Redis backend)     |
 
 ---
+
+
+---
+
+## ⚙️ Setup Instructions
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/sudhar03/IPLsimulator.git
+   cd IPLsimulator
+
+2. **Create and activate virtual environment**
+   ```bash
+   python -m venv env
+   source env/bin/activate  # On Windows: env\Scripts\activate
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+
+4. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env file and add your environment variables
+
+5. **Run migrations**
+   ```bash
+   python manage.py migrate
+
+6. **Run the development server**
+   ```bash
+   python manage.py runserver
+
+7. **Run Celery worker**
+   ```bash
+   celery -A iplsimulator worker -l info
+
+8. **Run Celery beat**
+   ```bash
+    celery -A iplsimulator beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info
