@@ -12,7 +12,7 @@ class Room(models.Model):
     user = models.ForeignKey("user.User", on_delete=models.CASCADE, null=True, blank=True)
     description = models.CharField(max_length=300, null=True, blank=True)
     year = models.IntegerField(default=2008)
-    purse = models.BigIntegerField(default=10_00_00_00_000)
+    purse = models.BigIntegerField(default=1_00_000_000_000)
     selected_team = models.ForeignKey("teams.Team", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     completed = models.BooleanField(default=False)

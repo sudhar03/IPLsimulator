@@ -122,19 +122,19 @@ def calculate_max_bid(team, player):
     }
     weight = multiplier.get(player.personality, 1.5)
     max_bid = base * weight
-    return min(max_bid, team.purse - 50_000_000)
+    return min(max_bid, team.purse - 500_000_000)
 
 
 def get_next_bid_amount(current_bid):
-    return current_bid + 50_000_000
+    return current_bid + 500_000_000
 
 
 
 def next_bid_flow(auction_player):
     if not auction_player.current_bid == 0:
-        return auction_player.current_bid + 50_000_000
+        return auction_player.current_bid + 500_000_000
     else:
-        return auction_player.base_price + 50_000_000
+        return auction_player.base_price + 500_000_000
 
 
 def start_next_player(room):
