@@ -1,7 +1,7 @@
 from django.db import models
 from model_utils import Choices
 
-
+from decimal import Decimal, InvalidOperation
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
@@ -21,6 +21,12 @@ class GenericPlayer(models.Model):
     player_type = models.CharField(max_length=255)
     nationality = models.CharField(max_length=255, choices=NATIONALITY, null=True, blank=True)
     base_price = models.IntegerField()
+    personality = models.CharField(max_length=255, null=True, blank=True)
+    bowling_average = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    batting_average = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    overall_percentage = models.IntegerField(null=True, blank=True)
+    
+    
 
     class Meta:
         verbose_name = "Player"
@@ -50,13 +56,23 @@ def import_players_from_csv(csv_path):
                 else:
                     base_price_lakhs = 50  # Default to 50 lakhs
 
-                base_price_paise = int(base_price_lakhs * 100000 * 100) # 1 lakh = 100000 rupees, 1 rupee = 100 paise
+                base_price_paise = int(base_price_lakhs * 100000 * 100)
+                def parse_decimal(value):
+                    value = value.strip()
+                    try:
+                        return Decimal(value)
+                    except (InvalidOperation, ValueError):
+                        return Decimal(0.0)
 
                 GenericPlayer.objects.create(
                     name=row['name'].strip(),
                     player_type=row['player style'].strip(),
                     nationality=nationality_value,
-                    base_price=base_price_paise  # Assuming base_price is an IntegerField storing paise
+                    base_price=base_price_paise,
+                    personality=row['personality'].strip(),
+                    bowling_average=parse_decimal(row['bowling average']),
+                    batting_average=parse_decimal(row['batting average']),
+                    overall_percentage=row['overall percentage'].strip()
                 )
                 count += 1
             except Exception as e:
