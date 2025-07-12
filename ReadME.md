@@ -67,3 +67,7 @@ A realistic, multi-team IPL auction simulator built with Django, Celery, and Red
 8. **Run Celery beat**
    ```bash
     celery -A iplsimulator beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
